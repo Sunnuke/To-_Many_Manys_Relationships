@@ -6,29 +6,21 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Category Page</title>
+<title>New Product</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 	<body>
 		<div class="container">
 			<div class="row align-items-start">
-				<h1>${category.name}</h1>
-			</div><br>
+				<h1>New Product</h1>
+			</div>
 			<div class="row">
 				<div class="col">
-					<h3>Products:</h3>
-					<c:forEach items="${products}" var="product">
-						<p>-${product.name}</p>
-					</c:forEach>
-				</div>
-				<div class="col">
-					<form:form action="/AddProduct/${category.id}" method="post" modelAttribute="product">
-						<form:select path="id">
-							<c:forEach items="${menu}" var="product">
-								<form:option value="${product.id}">${product.name}</form:option>
-							</c:forEach>
-						</form:select>
-						<br><br><form:button type="submit">Create</form:button>
+					<form:form action="/Product" method="post" modelAttribute="product">
+						Name: <form:input path="name" placeholder="Name of Product"/><br>
+						<br>Description: <form:textarea path="description" placeholder="Description of Product"/><br>
+						<br>Price: <form:input type="number" path="price" placeholder="Price of Product"/><br>
+						<br><br><form:button type="submit">Create</form:button><br>
 					</form:form>
 				</div>
 			</div>

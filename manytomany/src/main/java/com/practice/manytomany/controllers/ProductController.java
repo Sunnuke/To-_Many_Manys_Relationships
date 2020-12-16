@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.practice.manytomany.models.Category;
 import com.practice.manytomany.models.Product;
+import com.practice.manytomany.services.CategoryService;
 import com.practice.manytomany.services.ProductService;
 
 @Controller
@@ -22,6 +23,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	// New Product
 	@RequestMapping("/products/new")
@@ -49,4 +52,5 @@ public class ProductController {
 		model.addAttribute("categories", categories);
 		return "category.jsp";
 	}
+
 }

@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.practice.manytomany.models.Category;
 import com.practice.manytomany.models.Product;
 import com.practice.manytomany.services.CategoryService;
+import com.practice.manytomany.services.ProductService;
 
 @Controller
 public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private ProductService productService;
 	
 	// New Category
 	@RequestMapping("/categories/new")
@@ -41,13 +44,24 @@ public class CategoryController {
 	}
 	
 	// Selected Category
-	@RequestMapping("/categorys/{id}")
-	public String category(@PathVariable("id") Long id, Model model) {
+	@RequestMapping("/categories/{id}")
+	public String category(@PathVariable("id") Long id, Model model, @ModelAttribute("product") Product product) {
 		Category category = categoryService.findCategory(id);
 		List<Product> products = category.getProducts();
+		List<Product> menu = productService.allProducts();
 		model.addAttribute("category", category);
 		model.addAttribute("products", products);
+		model.addAttribute("menu", menu);
 		return "category.jsp";
 	}
 
+	
+	// Add Product to Category
+	@RequestMapping(value = "/AddProduct/{id}", method = RequestMethod.POST)
+	public String addProduct(@PathVariable("id") Long id, @ModelAttribute("product") Product product, Model model) {
+		Product productOg = productService.findProduct(product.getId());
+		Category category = categoryService.findCategory(id);
+		category.getProducts().add(productOg);
+		return "redirect:/categories/" + id;
+	}
 }
