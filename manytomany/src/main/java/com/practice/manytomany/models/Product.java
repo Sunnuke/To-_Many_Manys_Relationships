@@ -2,7 +2,6 @@ package com.practice.manytomany.models;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Locale.Category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
