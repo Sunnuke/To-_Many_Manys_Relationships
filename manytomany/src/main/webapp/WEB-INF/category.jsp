@@ -22,14 +22,14 @@
 					</c:forEach>
 				</div>
 				<div class="col">
-					<form:form action="/AddProduct/${category.id}" method="post" modelAttribute="product">
-						<form:select path="id">
+					<form action="/AddProduct/${category.id}" method="post">
+						<select name="product">
 							<c:forEach items="${menu}" var="product">
-								<form:option value="${product.id}">${product.name}</form:option>
+								<option value="${product.id}">${product.name}</option>
 							</c:forEach>
-						</form:select>
-						<br><br><form:button type="submit">Create</form:button>
-					</form:form>
+						</select>
+						<br><br><button type="submit">Add</button>
+					</form>
 				</div>
 			</div>
 		</div>

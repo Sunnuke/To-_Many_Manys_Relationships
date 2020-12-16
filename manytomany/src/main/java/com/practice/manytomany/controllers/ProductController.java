@@ -34,7 +34,7 @@ public class ProductController {
 	
 	// Create Product
 	@RequestMapping(value = "/Product", method = RequestMethod.POST)
-	public String creatCategory(@Valid @ModelAttribute("product") Product product, BindingResult result) {
+	public String creatProduct(@Valid @ModelAttribute("product") Product product, BindingResult result) {
 		if (result.hasErrors()) {
 			return "redirect:/products/new";
 		} else {
@@ -45,12 +45,21 @@ public class ProductController {
 	
 	// Selected Product
 	@RequestMapping("/products/{id}")
-	public String product(@PathVariable("id") Long id, Model model) {
+	public String product(@PathVariable("id") Long id, Model model, @ModelAttribute("category") Category category) {
 		Product product = productService.findProduct(id);
 		List<Category> categories = product.getCategories();
+		List<Category> menu = categoryService.allCategory();
 		model.addAttribute("product", product);
 		model.addAttribute("categories", categories);
-		return "category.jsp";
+		model.addAttribute("menu", menu);
+		return "product.jsp";
 	}
 
+	// Add Category to Product
+	@RequestMapping(value = "/AddCategory/{id}", method = RequestMethod.POST)
+	public String addCategory(@PathVariable("id") Long id, @ModelAttribute("category") Long category, Model model) {
+		Category categoryOg = categoryService.findCategory(category);
+		productService.addCategory(categoryOg, id);
+		return "redirect:/products/" + id;
+	}
 }

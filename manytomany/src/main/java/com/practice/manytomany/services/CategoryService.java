@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practice.manytomany.models.Category;
+import com.practice.manytomany.models.Product;
 import com.practice.manytomany.repositories.CategoryRepository;
 
 @Service
@@ -37,6 +38,13 @@ public class CategoryService {
 		return categoryRepository.save(category);
 		
 	}
-
+	
+	public Category addProduct(Product product, Long id) {
+		Category category = findCategory(id);
+		List<Product> products = category.getProducts();
+		products.add(product);
+		category.setProducts(products);
+		return categoryRepository.save(category);
+	}
 
 }

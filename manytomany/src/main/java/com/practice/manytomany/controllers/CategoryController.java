@@ -58,10 +58,9 @@ public class CategoryController {
 	
 	// Add Product to Category
 	@RequestMapping(value = "/AddProduct/{id}", method = RequestMethod.POST)
-	public String addProduct(@PathVariable("id") Long id, @ModelAttribute("product") Product product, Model model) {
-		Product productOg = productService.findProduct(product.getId());
-		Category category = categoryService.findCategory(id);
-		category.getProducts().add(productOg);
+	public String addProduct(@PathVariable("id") Long id, @ModelAttribute("product") Long product, Model model) {
+		Product productOg = productService.findProduct(product);
+		categoryService.addProduct(productOg, id);
 		return "redirect:/categories/" + id;
 	}
 }
