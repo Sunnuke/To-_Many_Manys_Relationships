@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.practice.manytomany.models.Category;
 import com.practice.manytomany.repositories.CategoryRepository;
 
+@Service
 public class CategoryService {
 	
 	@Autowired
